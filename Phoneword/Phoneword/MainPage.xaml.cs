@@ -38,8 +38,18 @@ namespace Phoneword
             {
                 var dialer = DependencyService.Get<IDialer>();
                 if (dialer != null)
-                    dialer.Dial(translatedNumber);
+                {
+                    App.PhoneNumbers.Add(translatedNumber); //Add o telefone na lista de contatos
+                    callHistoryButton.IsEnabled = true;
+                    dialer.Dial(translatedNumber); //Realiza a ligação
+                }
             }
+        }
+
+        void OnCallHistory(object sender, EventArgs e)
+        {
+            //Navega para Page que contém a lista de contatos
+            Navigation.PushAsync(new CallHistoryPage());
         }
     }
 }
